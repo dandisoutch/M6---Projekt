@@ -13,3 +13,5 @@ class Bomb(Square):
         super().__init__(x, y)
 
 # gegega
+
+#gogogogo
