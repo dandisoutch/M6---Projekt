@@ -11,10 +11,3 @@ class Number(Square):
 class Bomb(Square):
     def __init__(self, x, y):
         super().__init__(x, y)
-    
-x = "hello"
-x = "+"
-
-x = "cbt"
-x = "download free wifi"
-# HELLO 
