@@ -12,3 +12,4 @@ class Bomb(Square):
         super().__init__(x, y)
     
 x = "hello"
+x = "+"
