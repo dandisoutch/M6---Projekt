@@ -17,5 +17,3 @@ x = "+"
 
 x = "cbt"
 x = "download free wifi"
-
-x = "PLEASE GOD WORK FFS"
