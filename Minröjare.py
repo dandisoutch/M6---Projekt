@@ -16,3 +16,4 @@ x = "hello"
 x = "+"
 
 x = "cbt"
+x = "download free wifi"
