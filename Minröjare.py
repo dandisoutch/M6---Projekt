@@ -15,3 +15,5 @@ class Bomb(Square):
 # gegega
 
 #gogogogo
+
+# HEHEHE HAW
