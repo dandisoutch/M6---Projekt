@@ -15,7 +15,7 @@ class Bomb(Square):
         super().__init__(x, y)
 
 def makeGrid(width, height):
-    return [[Square(x, y) for x in range(height)] for y in range(width)]
+    return [[Square(x, y) for x in range(width)] for y in range(height)]
 
 def displayGrid(grid):
     for x in grid:
