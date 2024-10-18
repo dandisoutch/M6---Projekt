@@ -14,15 +14,23 @@ class Bomb(Square):
     def __init__(self, x, y):
         super().__init__(x, y)
 
-def makeGrid(width, height):
-    return [[Square(x, y) for x in range(width)] for y in range(height)]
+#The game's height and width.
+gameWidth = 5
+gameHeight = 5
 
-def displayGrid(grid):
-    for x in grid:
+def makeGrid(width, height): #makes a grid with square objects, each with their own coordinate.
+    return [[Square(x+1, height-y) for x in range(width)] for y in range(height)]
+
+def displayGrid(grid): #Displays a given grid. Also prints where the X and Y axis is.
+    print(f'x-values ------>', end = '')
+    print('\n')
+    for x in grid: #looks through all rows (x-values)
+        for y in x: #looks through the columns in the rows (y-values)
+            print(y, end=' ') #prints out the squareObject (calls squares __str__ to show its x, y)
+        if x[-1].y == 1:
+            print('^ y-values ^')
         print('\n')
-        for y in x:
-            print(y, end=' ')
 
-grid = makeGrid(5, 5)
+grid = makeGrid(gameWidth, gameHeight)
 
 displayGrid(grid)
