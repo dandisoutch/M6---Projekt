@@ -1,18 +1,22 @@
 class Square:
-    def __init__(self,x,y):
+    def __init__(self,x,y, bomb = False, flag = False, view = False):
         self.x = x
         self.y = y
+        self.bomb = bomb
+        self.flag = flag
+        self.view = view
+
 
     def __str__(self):
         return f'({self.x}, {self.y})'
     
-class Number(Square):
-    def __init__(self, x, y):
-        super().__init__(x, y)
+# class Number(Square):
+#     def __init__(self, x, y):
+#         super().__init__(x, y)
     
-class Bomb(Square):
-    def __init__(self, x, y):
-        super().__init__(x, y)
+# class Bomb(Square):
+#     def __init__(self, x, y):
+#         super().__init__(x, y)
 
 #The game's height and width.
 gameWidth = 5
@@ -31,6 +35,8 @@ def displayGrid(grid): #Displays a given grid. Also prints where the X and Y axi
             print('^ y-values ^')
         print('\n')
 
-grid = makeGrid(gameWidth, gameHeight)
+def plantBombs():
+    0 = 0
 
+grid = makeGrid(gameWidth, gameHeight)
 displayGrid(grid)
