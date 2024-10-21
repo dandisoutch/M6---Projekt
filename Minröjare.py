@@ -11,9 +11,9 @@ class Square:
 
     def __str__(self):
         if self.bomb == True:
-            return 'O    '
-        else: return 'X    '
-        #return f'({self.x}, {self.y}, {self.bomb})'
+            return 'X    '
+        else: return 'O    '
+        # return f'({self.x}, {self.y}, {self.bomb})'
     
 # class Number(Square):
 #     def __init__(self, x, y):
@@ -26,6 +26,10 @@ class Square:
 #The game's height and width.
 gameWidth = 5
 gameHeight = 5
+
+running = True
+
+bombPerRow = gameWidth/3
 
 def makeGrid(width, height): #makes a grid with square objects, each with their own coordinate.
     return [[Square(x+1, height-y) for x in range(width)] for y in range(height)]
@@ -40,14 +44,21 @@ def displayGrid(grid): #Displays a given grid. Also prints where the X and Y axi
             print('^ y-values ^')
         print('\n')
 
-def plantBombs(grid):
+def plantBombs(grid): #Plants bombs in selected grid.
     for x in grid:
+        visited = []
+        bombCount = 0
         for square in x:
-            if randint(0, 1) == 1:
+            if randint(0, 1) == 1 and visited.count(square.x) == 0 and bombCount < bombPerRow:
                 square.bomb = True
+                bombCount += 1
+            visited.append(square.x)
 
 playGrid = makeGrid(gameWidth, gameHeight)
 plantBombs(playGrid)
 displayGrid(playGrid)
 
-while 
+# while running == True:
+#     userInput = input("select your square: ")
+#     if userInput == "quit":
+#         running = False
