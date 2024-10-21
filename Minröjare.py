@@ -1,3 +1,5 @@
+from random import randint
+
 class Square:
     def __init__(self,x,y, bomb = False, flag = False, view = False):
         self.x = x
@@ -8,7 +10,10 @@ class Square:
 
 
     def __str__(self):
-        return f'({self.x}, {self.y})'
+        if self.bomb == True:
+            return 'O    '
+        else: return 'X    '
+        #return f'({self.x}, {self.y}, {self.bomb})'
     
 # class Number(Square):
 #     def __init__(self, x, y):
@@ -35,8 +40,14 @@ def displayGrid(grid): #Displays a given grid. Also prints where the X and Y axi
             print('^ y-values ^')
         print('\n')
 
-def plantBombs():
-    0 = 0
+def plantBombs(grid):
+    for x in grid:
+        for square in x:
+            if randint(0, 1) == 1:
+                square.bomb = True
 
-grid = makeGrid(gameWidth, gameHeight)
-displayGrid(grid)
+playGrid = makeGrid(gameWidth, gameHeight)
+plantBombs(playGrid)
+displayGrid(playGrid)
+
+while 
