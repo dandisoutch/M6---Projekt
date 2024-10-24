@@ -9,25 +9,28 @@ class Square:
         self.view = view
         self.bombCount = 0
 
-    def countBombs(self, grid): #Counts the bombs around the square with given grid
+    def countBombs(self, grid, width, height): #Counts the bombs around the square with given grid
         amount = 0
-        if grid[gameHeight-self.y][self.x-1].bomb == True: #return 0 if square contains a bomb
+        if grid[height-self.y][self.x-1].bomb == True: #return 0 if square contains a bomb
             return 0
         else: #Counts bombs
-            for row in grid[max(gameHeight-self.y-1, 0):min(gameHeight-self.y+2, 5)]:
-                for column in row[max(self.x-2, 0):min(self.x+1, 5)]:
+            for row in grid[max(height-self.y-1, 0):min(height-self.y+2, height)]:
+                for column in row[max(self.x-2, 0):min(self.x+1, width)]:
                     if column.bomb == True:
                         amount += 1
         return amount
             
     def __str__(self):
-        if self.bomb == True:
-            return 'X    '
-        else: return f'{self.bombCount}    '
+        if self.view:
+            if self.bomb == True:
+                return 'X    '
+            else: return f'{self.bombCount}    '
+        else:
+            return '*    '
 
 #The game's height and width.
-gameWidth = 5
-gameHeight = 5
+gameWidth = 10
+gameHeight = 10
 
 running = True
 
@@ -59,9 +62,17 @@ def plantBombs(grid): #Plants bombs in selected grid.
 def calculateBombCounts(grid):
     for y in grid:
         for x in y:
-            x.bombCount = x.countBombs(grid)
+            x.bombCount = x.countBombs(grid, gameWidth, gameHeight)
 
 playGrid = makeGrid(gameWidth, gameHeight)
 plantBombs(playGrid)
 calculateBombCounts(playGrid)  # Calculate bomb counts for each square
 displayGrid(playGrid)
+
+
+while True:
+    y = gameHeight - int(input("y: "))
+    x = int(input("x: ")) -1 
+
+    playGrid[y][x].view = True
+    displayGrid(playGrid)
