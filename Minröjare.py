@@ -21,12 +21,15 @@ class Square:
         return amount
             
     def __str__(self):
-        if self.view:
-            if self.bomb == True:
-                return 'X    '
-            else: return f'{self.bombCount}    '
+        if self.flag and not self.view:
+            return 'F    '
         else:
-            return '*    '
+            if self.view:
+                if self.bomb == True:
+                    return 'X    '
+                else: return f'{self.bombCount}    '
+            else:
+                return '*    '
 
 #The game's height and width.
 gameWidth = 10
@@ -69,10 +72,25 @@ plantBombs(playGrid)
 calculateBombCounts(playGrid)  # Calculate bomb counts for each square
 displayGrid(playGrid)
 
-
+# Intelekulat kommentarua
 while True:
-    y = gameHeight - int(input("y: "))
-    x = int(input("x: ")) -1 
 
-    playGrid[y][x].view = True
+    option = input("Type F for flag: ").lower()
+    
+
+    y = gameHeight - int(input("\ny: "))
+    x = int(input("x: ")) -1 
+    
+    match option:
+
+        case "f": #toggles flag
+            playGrid[y][x].flag = not playGrid[y][x].flag
+        
+        # Rage quit
+        case "q":
+            break
+        
+
+    
+        
     displayGrid(playGrid)
