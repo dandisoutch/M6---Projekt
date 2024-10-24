@@ -9,11 +9,18 @@ class Square:
         self.view = view
         self.bomb_count = 0  # Initialize bomb count
 
+    # Displaying itself as a character
     def __str__(self):
-        if self.bomb:
-            return 'X    '  # Return 'X' if it's a bomb
+        if self.flag == True:
+            return 'F    '
         else:
-            return f'{self.bomb_count}    '  # Return bomb count if it's not a bomb
+            if self.bomb:
+                return 'X    '  # Return 'X' if it's a bomb
+            else:
+                if self.bomb_count == 0:
+                    return 'O    '
+                else:
+                    return f'{self.bomb_count}    '  # Return bomb count if it's not a bomb
 
 def countBombs(grid, row, col):
     rows = len(grid)
@@ -32,7 +39,7 @@ def countBombs(grid, row, col):
         new_row = row + dr
         new_col = col + dc
         
-        # Check boundaries to avoid index out of range
+        # Check boundaries to avoid index out of range 
         if 0 <= new_row < rows and 0 <= new_col < cols:
             if grid[new_row][new_col].bomb:  # Check if the neighbor is a bomb
                 bomb_count += 1
@@ -68,6 +75,8 @@ def plantBombs(grid):  # Plants bombs in selected grid
                     grid[y][x].bomb = True
                     bombCount += 1
 
+
+## Debugging purpuses only ##
 def calculateBombCounts(grid):
     rows = len(grid)
     for y in range(rows):
@@ -75,6 +84,24 @@ def calculateBombCounts(grid):
             grid[y][x].bomb_count = countBombs(grid, y, x)  # Update bomb count for each square
 
 playGrid = makeGrid(gameWidth, gameHeight)
+
 plantBombs(playGrid)
-calculateBombCounts(playGrid)  # Calculate bomb counts for each square
+
 displayGrid(playGrid)
+
+## TEST FOR DISPLAYING VALUE
+while True:
+    selected_x = int(input("Select x value: "))
+    selected_y = int(input("Select y value: "))
+    playGrid[selected_x][selected_y].bomb_count = countBombs(playGrid,selected_y,selected_x)
+    displayGrid(playGrid)
+
+## TEST FOR FLAGS
+# while True:
+#     selected_x = int(input("Select x value: "))
+#     selected_y = int(input("Select y value: "))
+#     if playGrid[selected_x][selected_y].flag == True:
+#         playGrid[selected_x][selected_y].flag = False
+#     else:
+#         playGrid[selected_x][selected_y].flag = True
+#     displayGrid(playGrid)
