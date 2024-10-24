@@ -1,5 +1,5 @@
 from random import randint
-
+#balls
 class Square:
     def __init__(self,x,y, bomb = False, flag = False, view = False):
         self.x = x
@@ -72,25 +72,25 @@ plantBombs(playGrid)
 calculateBombCounts(playGrid)  # Calculate bomb counts for each square
 displayGrid(playGrid)
 
-# Intelekulat kommentarua
+# Quirky algorithm:
+
+
 while True:
+    option = input("Type F for flag or Q to quit: ").lower()
 
-    option = input("Type F for flag: ").lower()
-    
+    if option == "q":
+        break
 
-    y = gameHeight - int(input("\ny: "))
-    x = int(input("x: ")) -1 
-    
-    match option:
-
-        case "f": #toggles flag
+    try:
+        y = gameHeight - int(input("\ny: "))
+        x = int(input("x: ")) -1
+        
+        if option == "f":
             playGrid[y][x].flag = not playGrid[y][x].flag
-        
-        # Rage quit
-        case "q":
-            break
-        
+        else:
+            playGrid[y][x].view = True
+    except(ValueError):
+        print("\nNot a valid option\n")
 
-    
-        
+
     displayGrid(playGrid)
