@@ -41,6 +41,7 @@ class Square:
                 return '*    '
 
 #The game's height and width.
+#Make the user choose gamesize?
 gameWidth = 10
 gameHeight = 10
 
@@ -61,6 +62,8 @@ def displayGrid(grid): #Displays a given grid. Also prints where the X and Y axi
             print('^ y-values ^')
         print('\n')
 
+
+#Make this more random, still has tendency to spawn bombs to the left more.
 def plantBombs(grid): #Plants bombs in selected grid.
     for x in grid:
         visited = []
