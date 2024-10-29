@@ -1,5 +1,5 @@
 from random import randint
-#balls
+
 class Square:
     def __init__(self,x,y, bomb = False, flag = False, view = False):
         self.x = x
@@ -11,11 +11,11 @@ class Square:
 
     def countBombs(self, grid, width, height): #Counts the bombs around the square with given grid
         amount = 0
-        y = self.y-1
+        y = self.y-1 #Translates x-y values to use them in grid[][]
         x = self.x-1
         if grid[y][x].bomb == True: #return 0 if square contains a bomb
             return 0
-        else: #Counts bombs
+        else: #Counts bombs in the 8 surrounding squares (and itself)
             for row in grid[max(y-1, 0):min(y+2, height)]:
                 for column in row[max(x-1, 0):min(x+2, width)]:
                     if column.bomb == True:
@@ -48,8 +48,8 @@ class Square:
 
 #The game's height and width.
 #Make the user choose gamesize?
-gameWidth = 10
-gameHeight = 10
+gameWidth = 6
+gameHeight = 6
 
 running = True
 
@@ -74,11 +74,15 @@ def plantBombs(grid): #Plants bombs in selected grid.
     for x in grid:
         visited = []
         bombCount = 0
-        for square in x:
-            if randint(0, 1) == 1 and visited.count(square.x) == 0 and bombCount < bombPerRow:
-                square.bomb = True
+        while True:
+            square = x[randint(0, len(x))-1]
+            if square.bomb == False and visited.count(square) != 1:
                 bombCount += 1
-            visited.append(square.x)
+                visited.append(square)
+                square.bomb = True
+            if bombCount == bombPerRow:
+                break
+
 
 def calculateBombCounts(grid):
     for y in grid:
@@ -89,10 +93,6 @@ playGrid = makeGrid(gameWidth, gameHeight)
 plantBombs(playGrid)
 calculateBombCounts(playGrid)  # Calculate bomb counts for each square
 displayGrid(playGrid)
-
-# Quirky algorithm:
-
-
 
 while True:
     option = input("Type F for flag or Q to quit: ").lower()
@@ -110,6 +110,5 @@ while True:
             playGrid[y][x].emptySquares(playGrid, gameWidth, gameHeight)
     except(ValueError):
         print("\nNot a valid option\n")
-
 
     displayGrid(playGrid)
