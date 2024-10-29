@@ -19,6 +19,15 @@ class Square:
                     if column.bomb == True:
                         amount += 1
         return amount
+
+    def emptySquares(self, grid, width, height):
+        grid[height-self.y][self.x-1].view = True
+        if grid[height-self.y][self.x-1].bombCount == 0 and grid[height-self.y][self.x-1].bomb == False:
+            for row in grid[max(height-self.y-1, 0):min(height-self.y+2, height)]:
+                for column in row[max(self.x-2, 0):min(self.x+1, width)]:
+                    if column.view == False and column.bomb == False:
+                        column.emptySquares(grid, width, height)
+                        
             
     def __str__(self):
         if self.flag and not self.view:
@@ -37,7 +46,7 @@ gameHeight = 10
 
 running = True
 
-bombPerRow = gameWidth // 3
+bombPerRow = gameWidth // 4
 
 def makeGrid(width, height): #makes a grid with square objects, each with their own coordinate.
     return [[Square(x+1, height-y) for x in range(width)] for y in range(height)]
@@ -88,7 +97,7 @@ while True:
         if option == "f":
             playGrid[y][x].flag = not playGrid[y][x].flag
         else:
-            playGrid[y][x].view = True
+            playGrid[y][x].emptySquares(playGrid, gameWidth, gameHeight)
     except(ValueError):
         print("\nNot a valid option\n")
 
